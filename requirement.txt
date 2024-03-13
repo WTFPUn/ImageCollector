@@ -16,6 +16,9 @@ colorama==0.4.6
     # via
     #   build
     #   click
+    #   colorlog
+colorlog==6.8.2
+    # via -r .\requirement.in
 mypy-extensions==1.0.0
     # via black
 numpy==1.26.4
