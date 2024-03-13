@@ -7,8 +7,26 @@ from datetime import datetime
 import time
 
 import logging
+import colorlog
 
-logging.basicConfig(level=logging.DEBUG)
+# set up logging
+handler = colorlog.StreamHandler()
+handler.setFormatter(
+    colorlog.ColoredFormatter(
+        "%(log_color)s[%(levelname)s]: \033[0m%(message)s",
+        log_colors={
+            "DEBUG": "cyan",
+            "INFO": "green",
+            "WARNING": "yellow",
+            "ERROR": "red",
+            "CRITICAL": "red,bg_white",
+        },
+    )
+)
+
+logger = colorlog.getLogger(__name__)
+logger.addHandler(handler)
+logger.setLevel(logging.INFO)
 
 
 class Config(TypedDict):
@@ -40,14 +58,14 @@ class ImageCollector:
         self.path = config["path"]
 
         if config["image_polling_interval"] <= 0:
-            logging.error("Error: image_polling_interval must be greater than 0.")
+            logger.error("Error: image_polling_interval must be greater than 0.")
             sys.exit()
 
         self.image_polling_interval = config["image_polling_interval"]
 
         # test video capture
         if not config["vcap"].isOpened():
-            logging.error("Error: Could not open video capture.")
+            logger.error("Error: Could not open video capture.")
             sys.exit()
 
         self.vcap = config["vcap"]
@@ -92,4 +110,9 @@ class ImageCollector:
                 break
             image_path = date_path / f"{time.time()}.jpg"
             cv2.imwrite(str(image_path), frame)
+            logger.info(f"Image saved to {image_path}")
             time.sleep(self.image_polling_interval)
+
+        self.vcap.release()
+        cv2.destroyAllWindows()
+        logger.info(f"Image collection complete. Images saved to {date_path}")
