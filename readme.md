@@ -39,6 +39,10 @@ To use this program, you can run the following command
 ```bash
 python main.py <outputfolder> <number_of_images> --videro_stream <video_stream> --interval <interval>
 ```
+after running the command, program will setup follow by your configuration and after that program will ask you to press enter to start collecting images like
+```bash
+Press any key to continue . . .
+```
 
 ### program arguments
 | Argument | Description | Example |
