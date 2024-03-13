@@ -58,3 +58,35 @@ python main.py ./images 100 --video_stream rtsp://admin:admin@
 ```
 
 the program will check directory `./images` and create if it does not exist. then program will collect image for 100 seconds and save in `./images` directory.But if we put `--interval 10` program will collect image every 10 seconds instead of 1 second.
+
+
+## End User (Thai)
+1. git clone โปรเจคนี้
+2. ลง python3 และ pip
+3. สร้าง virtual environment โดยใช้คำสั่ง
+```bash
+python -m venv venv
+```
+4. เปิด virtual environment โดยใช้คำสั่ง
+```bash
+.\venv\Scripts\activate
+```
+5. ลง library โดยใช้คำสั่ง
+```bash
+pip install -r requirements.txt
+```
+
+6. ใช้โปรแกรมโดยใช้คำสั่ง
+```bash
+python main.py <./โฟลเดอร์> <ระยะเวลาในการเก็บข้อมูล> --videro_stream <urlของ stream> --interval <เก็บรูปทุกๆ interval วินาที>
+```
+
+หลังจากรันโปรแกรมแล้ว โปรแกรมจะเช็ค Configต่างๆก่อนจากนั้นโปรแกรมจะขึ้น
+```bash
+Press any key to continue . . .
+```
+
+ให้กด Enter เพื่อเริ่มเก็บข้อมูลเป็นการเก็บรูปภาพ และสิ้นสุดการเก็บข้อมูล รูปจะอยู่ในโฟลเดอร์ที่กำหนดไว้ ตามด้วยช่วงเวลาที่กำหนดไว้ เช่น
+```
+testimgs\2021-08-25_14-00-00\1710321007.146368.jpg
+```
